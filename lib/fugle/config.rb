@@ -27,7 +27,7 @@ module Fugle
     #
     # @since 0.1.0
     def api_token
-      @api_token || ENV['API_TOKEN']
+      @api_token || ENV['FUGLE_API_TOKEN']
     end
   end
 end

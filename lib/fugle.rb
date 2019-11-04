@@ -14,6 +14,10 @@ require 'fugle/information'
 module Fugle
   class Error < StandardError; end
 
+  # @since 0.1.0
+  # @api private
+  LOCK = Mutex.new
+
   # The Fugle Config
   #
   # @param block [Proc] the configure block
@@ -26,6 +30,23 @@ module Fugle
     @config ||= Config.new
     @config.instance_eval(&block) if block_given?
     @config
+  end
+
+  # Temporary change config
+  #
+  # @param config [Fugle::Config] the config object
+  # @param block [Proc] the temporary working block
+  #
+  # @since 0.1.0
+  # @api private
+  def self.use(config, &_block)
+    LOCK.synchronize do
+      temp = Fugle.config
+      @config = config
+      res = yield
+      @config = temp
+      res
+    end
   end
 
   # @since 0.1.0
