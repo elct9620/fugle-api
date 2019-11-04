@@ -20,20 +20,23 @@ module Fugle
         end
       end
 
+      using Utils
       include HTTP::API
+
+      STATES = %w[Curbing Trial OpenDelayed Halting Closed].freeze
 
       # @since 0.1.0
       # @api private
       def initialize(data)
-        @closed = data.fetch('isClosed')
+        STATES.each do |state|
+          instance_variable_set("@#{state.underscore}", data["is#{state}"])
+        end
       end
 
-      # @return [TrueClass,FalseClass] is closed
-      #
-      # @since 0.1.0
-      # @api private
-      def closed?
-        @closed == true
+      STATES.map(&:underscore).each do |state|
+        define_method "#{state}?" do
+          instance_variable_get("@#{state}") == true
+        end
       end
     end
   end

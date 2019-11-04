@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'fugle/version'
+require 'fugle/utils'
 require 'fugle/config'
 require 'fugle/http'
 require 'fugle/intraday'
@@ -31,5 +32,11 @@ module Fugle
   # @api private
   def self.http
     HTTP::Client.new
+  end
+
+  # @since 0.1.0
+  # @api private
+  def self.intraday
+    http.intraday
   end
 end
