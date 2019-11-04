@@ -22,6 +22,7 @@ module Fugle
 
       using Utils
       include HTTP::API
+      include Utils
 
       # @since 0.1.0
       # @api private
@@ -57,19 +58,6 @@ module Fugle
       PERMITS.map(&:underscore).each do |permit|
         define_method("#{permit}?") do
           instance_variable_get("@#{permit}") == true
-        end
-      end
-
-      private
-
-      # @since 0.1.0
-      # @api private
-      def load_boolean(attributes, data, prefix: 'is')
-        attributes.each do |attr|
-          instance_variable_set(
-            "@#{attr.underscore}",
-            data["#{prefix}#{attr}"]
-          )
         end
       end
 

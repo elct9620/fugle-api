@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'fugle/trade'
+
 module Fugle
   module Intraday
     # The Intraday Trades
@@ -26,31 +28,13 @@ module Fugle
       # @since 0.1.0
       # @api private
       def initialize(items)
-        @items = items.map { |item| Item.new(item) }
+        @items = items.map { |item| Trade.new(item) }
       end
 
       # @since 0.1.0
       # @api private
       def each(&block)
         @items.each(&block)
-      end
-
-      # @since 0.1.0
-      # @api private
-      class Item
-        # @since 0.1.0
-        # @api private
-        attr_reader :price, :unit, :volume, :serial
-
-        # @since 0.1.0
-        # @api private
-        def initialize(item)
-          @price = item['price']
-          @unit = item['unit']
-          @volume = item['volume']
-          @serial = item['serial']
-          @at = DateTime.parse(item['at'])
-        end
       end
     end
   end
