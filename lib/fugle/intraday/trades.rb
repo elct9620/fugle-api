@@ -9,21 +9,10 @@ module Fugle
     # @since 0.1.0
     # @api private
     class Trades
-      class << self
-        # @param symbolID [String] the symbol to query
-        #
-        # @since 0.1.0
-        # @api private
-        def call(symbol_id)
-          build_uri(
-            'intraday/trades',
-            'symbolId' => symbol_id
-          )
-        end
-      end
-
       include HTTP::API
       include Enumerable
+
+      path 'intraday/trades'
 
       # @since 0.1.0
       # @api private

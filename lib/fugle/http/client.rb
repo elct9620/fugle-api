@@ -29,7 +29,7 @@ module Fugle
         return super if @api.nil?
         return self unless @api.is_a?(Class)
 
-        uri = @api.call(*args, &block)
+        uri = @api.uri(*args)
         Response.new(@api, JSON.parse(Net::HTTP.get(uri)))
       end
 

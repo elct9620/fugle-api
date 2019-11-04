@@ -17,6 +17,8 @@ module Fugle
       # @api private
       def self.included(base)
         base.class_eval do
+          @_path = nil
+
           extend ClassMethods
         end
       end
@@ -26,7 +28,17 @@ module Fugle
       module ClassMethods
         # @since 0.1.0
         # @api private
-        def build_uri(path, parameters = {})
+        def path(value = nil)
+          return @_path if value.nil?
+
+          @_path = value
+        end
+
+        # TODO: Verify parameters
+        #
+        # @since 0.1.0
+        # @api private
+        def uri(parameters = {})
           uri = URI("#{ENDPOINT}/#{VERSION}/#{path}")
           uri.query = URI.encode_www_form(
             parameters.merge('apiToken' => Fugle.config.api_token)
