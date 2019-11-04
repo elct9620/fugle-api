@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'The Fugle.tw API Client'
   spec.description   = 'The Fugle.tw API Client'
-  spec.homepage      = 'https://github.com/elct9620/fugle.rb'
+  spec.homepage      = 'https://github.com/elct9620/fugle-api'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files

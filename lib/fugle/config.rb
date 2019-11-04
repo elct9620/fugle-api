@@ -18,7 +18,7 @@ module Fugle
         send("#{name}=", value)
       end
 
-      instance_eval(&block) if block_given?
+      instance_exec(self, &block) if block_given?
     end
 
     # The API Token

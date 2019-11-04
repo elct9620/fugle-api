@@ -1,8 +1,7 @@
-# Fugle
+Fugle API
+===
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fugle`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This is Ruby gem implement Realtime API client for [Fugle.tw](https://fugle.tw)
 
 ## Installation
 
@@ -22,7 +21,55 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Currently only support HTTP API as below, for better use the API the result structure is modified.
+
+### Config
+
+```ruby
+Fugle.config do |c|
+  c.api_token = 'XXX'
+end
+```
+
+> The token also loaded from `FUGLE_API_TOKEN` environment variable
+
+You can temporary change config by `Fugle.use`
+
+```ruby
+config = Fugle::Config.new(api_token: 'XXX')
+
+Fugle.use(config) do
+  Fugle.intraday.meta(symbol: '0050')
+end
+```
+
+### Chart
+
+```ruby
+Fugle.intraday.chart(symbol: '0050').body.each do |item|
+  puts "Open: #{item.open} @ #{item.time}"
+end
+```
+
+### Quote
+
+```ruby
+Fugle.intraday.quote(symbol: '0050').body.closed?
+```
+
+### Meta
+
+```ruby
+Fugle.intraday.meta(symbol: '0050').body.name
+```
+
+### Trades
+
+```ruby
+Fugle.intraday.trades(symbol: '0050').body.each do |item|
+  puts "Price: #{item.price}"
+end
+```
 
 ## Development
 
@@ -32,8 +79,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/fugle. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/elct9620/fugle-api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Code of Conduct
 
-Everyone interacting in the Fugle project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/fugle/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Fugle project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/elct9620/fugle-api/blob/master/CODE_OF_CONDUCT.md).
