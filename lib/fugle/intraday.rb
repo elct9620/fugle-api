@@ -5,6 +5,7 @@ require 'date'
 require 'fugle/intraday/chart'
 require 'fugle/intraday/quote'
 require 'fugle/intraday/trades'
+require 'fugle/intraday/meta'
 
 module Fugle
   # The Intraday Module
