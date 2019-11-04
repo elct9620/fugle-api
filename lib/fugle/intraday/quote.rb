@@ -21,6 +21,20 @@ module Fugle
       end
 
       include HTTP::API
+
+      # @since 0.1.0
+      # @api private
+      def initialize(data)
+        @closed = data.fetch('isClosed')
+      end
+
+      # @return [TrueClass,FalseClass] is closed
+      #
+      # @since 0.1.0
+      # @api private
+      def closed?
+        @closed == true
+      end
     end
   end
 end

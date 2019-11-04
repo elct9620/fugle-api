@@ -4,6 +4,8 @@ require 'fugle/version'
 require 'fugle/config'
 require 'fugle/http'
 require 'fugle/intraday'
+require 'fugle/response'
+require 'fugle/information'
 
 # The Fugle.tw API Client
 #

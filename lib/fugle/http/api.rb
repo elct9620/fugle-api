@@ -26,13 +26,18 @@ module Fugle
       module ClassMethods
         # @since 0.1.0
         # @api private
-
         def build_uri(path, parameters = {})
           uri = URI("#{ENDPOINT}/#{VERSION}/#{path}")
           uri.query = URI.encode_www_form(
             parameters.merge('apiToken' => Fugle.config.api_token)
           )
           uri
+        end
+
+        # @since 0.1.0
+        # @api private
+        def data_name
+          @data_name ||= name.split('::').last.downcase
         end
       end
     end
