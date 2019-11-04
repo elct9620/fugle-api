@@ -15,6 +15,7 @@ module Fugle
       include Utils
 
       path 'intraday/quote'
+      params :symbol, require: true, alias: 'symbolId'
 
       # @since 0.1.0
       # @api private

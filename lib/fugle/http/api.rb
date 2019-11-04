@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'fugle/http/parameters'
+require 'fugle/http/query'
+
 module Fugle
   module HTTP
     # @since 0.1.0
@@ -18,6 +21,7 @@ module Fugle
       def self.included(base)
         base.class_eval do
           @_path = nil
+          @_parameters = Parameters.new
 
           extend ClassMethods
         end
@@ -34,15 +38,26 @@ module Fugle
           @_path = value
         end
 
-        # TODO: Verify parameters
-        #
         # @since 0.1.0
         # @api private
-        def uri(parameters = {})
+        def params(name, options = {})
+          @_parameters.add(name, options)
+        end
+
+        # @since 0.1.0
+        # @api private
+        def parameters
+          @_parameters
+        end
+
+        # @since 0.1.0
+        # @api private
+        def uri(query = {})
           uri = URI("#{ENDPOINT}/#{VERSION}/#{path}")
-          uri.query = URI.encode_www_form(
-            parameters.merge('apiToken' => Fugle.config.api_token)
-          )
+          uri.query = Query.new(
+            query.merge(apiToken: Fugle.config.api_token),
+            parameters
+          ).to_s
           uri
         end
 

@@ -12,6 +12,7 @@ module Fugle
       include Utils
 
       path 'intraday/meta'
+      params :symbol, require: true, alias: 'symbolId'
 
       # @since 0.1.0
       # @api private

@@ -13,6 +13,7 @@ module Fugle
       include Enumerable
 
       path 'intraday/chart'
+      params :symbol, require: true, alias: 'symbolId'
 
       # @since 0.1.0
       # @api private
