@@ -30,7 +30,9 @@ module Fugle
         return self unless @api.is_a?(Class)
 
         uri = @api.uri(*args)
-        Response.new(@api, JSON.parse(Net::HTTP.get(uri)))
+        res = Response.new(@api, JSON.parse(Net::HTTP.get(uri)))
+        yield res.body if block_given?
+        res
       end
 
       private
