@@ -10,7 +10,7 @@ module Fugle
   class Information
     # @since 0.1.0
     # @api private
-    attr_reader :symbol, :mode, :timezone, :country_code, :update_at
+    attr_reader :symbol, :mode, :timezone, :country_code, :updated_at, :date
 
     # @since 0.1.0
     # @api private
