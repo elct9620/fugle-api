@@ -19,8 +19,35 @@ module Fugle
       @mode = attributes['mode']
       @timezone = attributes['timeZone']
       @country_code = attributes['countryCode']
-      @update_at = DateTime.parse(attributes['lastUpdatedAt'])
+      @updated_at = DateTime.parse(attributes['lastUpdatedAt'])
       @date = Date.parse(attributes['date'])
+    end
+
+    # Convert to Hash
+    #
+    # @return [Hash] the response as hash
+    #
+    # @since 0.1.0
+    # @api private
+    def to_h
+      {
+        symbol: @symbol,
+        mode: @mode,
+        timezone: @timezone,
+        country_code: @country_code,
+        date: @date,
+        updated_at: @updated_at
+      }
+    end
+
+    # Convert to JSON
+    #
+    # @return [String] the json string
+    #
+    # @since 0.1.0
+    # @api private
+    def to_json(*args)
+      to_h.to_json(*args)
     end
   end
 end

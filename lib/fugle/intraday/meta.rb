@@ -51,6 +51,41 @@ module Fugle
         end
       end
 
+      # Convert to Hash
+      #
+      # @return [Hash] the response as hash
+      #
+      # @since 0.1.0
+      # @api private
+      # rubocop:disable Metrics/MethodLength
+      def to_h
+        {
+          name: @name,
+          industry: @industry,
+          type: @type,
+          price: @price,
+          is_index: index?,
+          is_terminated: terminated?,
+          is_suspended: suspended?,
+          is_warrant: warrant?,
+          can_day_buy_sell: day_buy_sell?,
+          can_day_sell_buy: day_sell_buy?,
+          can_short_margin: short_margin?,
+          can_short_lend: short_lend?
+        }
+      end
+      # rubocop:enable Metrics/MethodLength
+
+      # Convert to JSON
+      #
+      # @return [String] the json string
+      #
+      # @since 0.1.0
+      # @api private
+      def to_json(*args)
+        to_h.to_json(*args)
+      end
+
       # @since 0.1.0
       # @api private
       class Price
@@ -65,6 +100,31 @@ module Fugle
           @high_limit = data['priceHighLimit']
           @low_limit = data['priceLowLimit']
           @currency = data['currency']
+        end
+
+        # Convert to Hash
+        #
+        # @return [Hash] the response as hash
+        #
+        # @since 0.1.0
+        # @api private
+        def to_h
+          {
+            reference: @reference,
+            high_limit: @high_limit,
+            low_limit: @low_limit,
+            currency: @currency
+          }
+        end
+
+        # Convert to JSON
+        #
+        # @return [String] the json string
+        #
+        # @since 0.1.0
+        # @api private
+        def to_json(*args)
+          to_h.to_json(*args)
         end
       end
     end

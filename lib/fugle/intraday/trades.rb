@@ -26,6 +26,16 @@ module Fugle
       def each(&block)
         @items.each(&block)
       end
+
+      # Convert to JSON
+      #
+      # @return [String] the json string
+      #
+      # @since 0.1.0
+      # @api private
+      def to_json(*args)
+        to_a.to_json(*args)
+      end
     end
   end
 end

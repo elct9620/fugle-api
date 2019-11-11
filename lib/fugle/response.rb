@@ -21,5 +21,29 @@ module Fugle
       @info = Information.new(attributes.dig('data', 'info'))
       @body = body.new(attributes.dig('data', body.data_name))
     end
+
+    # Convert to Hash
+    #
+    # @return [Hash] the response as hash
+    #
+    # @since 0.1.0
+    # @api private
+    def to_h
+      {
+        version: @version,
+        info: @info,
+        body: @body
+      }
+    end
+
+    # Convert to JSON
+    #
+    # @return [String] the json string
+    #
+    # @since 0.1.0
+    # @api private
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
   end
 end

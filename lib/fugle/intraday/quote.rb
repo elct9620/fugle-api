@@ -45,6 +45,32 @@ module Fugle
         end
       end
 
+      # Convert to Hash
+      #
+      # @return [Hash] the response as hash
+      #
+      # @since 0.1.0
+      # @api private
+      def to_h
+        {
+          total: @total,
+          trial: @trial,
+          trade: @trade,
+          price: @price,
+          order: @order
+        }
+      end
+
+      # Convert to JSON
+      #
+      # @return [String] the json string
+      #
+      # @since 0.1.0
+      # @api private
+      def to_json(*args)
+        to_h.to_json(*args)
+      end
+
       # @since 0.1.0
       # @api private
       class Price
@@ -59,6 +85,30 @@ module Fugle
           @low = Trade.new(data['priceLow'])
           @open = Trade.new(data['priceOpen'])
         end
+
+        # Convert to Hash
+        #
+        # @return [Hash] the response as hash
+        #
+        # @since 0.1.0
+        # @api private
+        def to_h
+          {
+            high: @high,
+            low: @low,
+            open: @open
+          }
+        end
+
+        # Convert to JSON
+        #
+        # @return [String] the json string
+        #
+        # @since 0.1.0
+        # @api private
+        def to_json(*args)
+          to_h.to_json(*args)
+        end
       end
 
       # @since 0.1.0
@@ -71,9 +121,33 @@ module Fugle
         # @since 0.1.0
         # @api private
         def initialize(data)
-          @update_at = DateTime.parse(data['at'])
+          @updated_at = DateTime.parse(data['at'])
           @best_bids = data['bestBids'].map { |item| Trade.new(item) }
           @best_asks = data['bestAsks'].map { |item| Trade.new(item) }
+        end
+
+        # Convert to Hash
+        #
+        # @return [Hash] the response as hash
+        #
+        # @since 0.1.0
+        # @api private
+        def to_h
+          {
+            updated_at: @updated_at,
+            best_bids: @best_bids,
+            best_asks: @best_asks
+          }
+        end
+
+        # Convert to JSON
+        #
+        # @return [String] the json string
+        #
+        # @since 0.1.0
+        # @api private
+        def to_json(*args)
+          to_h.to_json(*args)
         end
       end
     end

@@ -29,6 +29,16 @@ module Fugle
         @items.each(&block)
       end
 
+      # Convert to JSON
+      #
+      # @return [String] the json string
+      #
+      # @since 0.1.0
+      # @api private
+      def to_json(*args)
+        to_a.to_json(*args)
+      end
+
       # @since 0.1.0
       # @api private
       class Item
@@ -43,6 +53,34 @@ module Fugle
           attributes.each do |name, value|
             instance_variable_set("@#{name}", value)
           end
+        end
+
+        # Convert to Hash
+        #
+        # @return [Hash] the response as hash
+        #
+        # @since 0.1.0
+        # @api private
+        def to_h
+          {
+            open: @open,
+            high: @high,
+            low: @low,
+            close: @close,
+            unit: @unit,
+            volume: @volume,
+            time: @time
+          }
+        end
+
+        # Convert to JSON
+        #
+        # @return [String] the json string
+        #
+        # @since 0.1.0
+        # @api private
+        def to_json(*args)
+          to_h.to_json(*args)
         end
       end
     end
