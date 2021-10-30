@@ -10,13 +10,16 @@ module Fugle
   class Information
     # @since 0.1.0
     # @api private
-    attr_reader :symbol, :mode, :timezone, :country_code, :updated_at, :date
+    attr_reader :symbol, :type, :exchange, :market,
+                :timezone, :country_code, :updated_at, :date
 
     # @since 0.1.0
     # @api private
     def initialize(attributes = {})
       @symbol = attributes['symbolId']
-      @mode = attributes['mode']
+      @type = attributes['type']
+      @exchange = attributes['exchange']
+      @market = attributes['market']
       @timezone = attributes['timeZone']
       @country_code = attributes['countryCode']
       @updated_at = DateTime.parse(attributes['lastUpdatedAt'])
@@ -32,7 +35,9 @@ module Fugle
     def to_h
       {
         symbol: @symbol,
-        mode: @mode,
+        type: @type,
+        exchange: @exchange,
+        market: @market,
         timezone: @timezone,
         country_code: @country_code,
         date: @date,
