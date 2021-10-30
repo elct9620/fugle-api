@@ -14,7 +14,7 @@ module Fugle
 
       # @since 0.1.0
       # @api private
-      VERSION = 'v0'
+      VERSION = 'v0.3'
 
       # @since 0.1.0
       # @api private
