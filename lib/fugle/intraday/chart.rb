@@ -14,12 +14,14 @@ module Fugle
 
       path 'intraday/chart'
       params :symbol, require: true, alias: 'symbolId'
+      params :odd_lot, alias: 'oddLot'
 
       # @since 0.1.0
       # @api private
       def initialize(data)
-        @items = data.map do |time, row|
-          Item.new(row, time)
+        keys = data.keys
+        @items = data.values.transpose.map do |row|
+          Item.new(keys.zip(row).to_h)
         end
       end
 
@@ -44,15 +46,17 @@ module Fugle
       class Item
         # @since 0.1.0
         # @api private
-        attr_reader :open, :high, :low, :close, :unit, :volume, :time
+        attr_reader :open, :high, :low, :close, :volume, :time
 
         # @since 0.1.0
         # @api private
-        def initialize(attributes, time)
-          @time = DateTime.parse(time)
-          attributes.each do |name, value|
-            instance_variable_set("@#{name}", value)
-          end
+        def initialize(row)
+          @time = Time.at(row['t'].to_f / 1000).to_datetime
+          @open = row['o']
+          @high = row['h']
+          @low = row['l']
+          @close = row['c']
+          @volume = row['v']
         end
 
         # Convert to Hash
@@ -67,7 +71,6 @@ module Fugle
             high: @high,
             low: @low,
             close: @close,
-            unit: @unit,
             volume: @volume,
             time: @time
           }
