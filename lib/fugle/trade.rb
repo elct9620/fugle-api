@@ -8,16 +8,15 @@ module Fugle
   class Trade
     # @since 0.1.0
     # @api private
-    attr_reader :price, :unit, :order, :volume, :serial, :updated_at
+    attr_reader :price, :bid, :ask, :volume, :updated_at
 
     # @since 0.1.0
     # @api private
     def initialize(item)
       @price = item['price']
-      @unit = item['unit']
-      @order = item['order']
+      @bid = item['bid']
+      @ask = item['ask']
       @volume = item['volume']
-      @serial = item['serial']
       @updated_at = DateTime.parse(item['at']) if item['at']
     end
 
@@ -30,10 +29,9 @@ module Fugle
     def to_h
       {
         price: @price,
-        unit: @uint,
+        bid: @bid,
+        ask: @ask,
         volume: @volume,
-        order: @order,
-        serial: @serial,
         updated_at: @updated_at
       }
     end

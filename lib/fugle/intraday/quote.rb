@@ -17,19 +17,22 @@ module Fugle
       path 'intraday/quote'
       params :symbol, require: true, alias: 'symbolId'
 
+      # TODO: Add more quote attribute support
       # @since 0.1.0
       # @api private
       attr_reader :total, :trial, :trade, :price, :orders
 
       # @since 0.1.0
       # @api private
-      STATES = %w[Curbing Trial OpenDelayed Halting Closed].freeze
+      STATES = %w[Curbing CurbingFall CurbingRise
+                  Trial OpenDelayed Halting Closed].freeze
 
       # @since 0.1.0
       # @api private
       def initialize(data)
         load_boolean STATES, data, prefix: 'is'
 
+        # TODO: Refactor to total object
         @total = Trade.new(data['total'])
         @trial = Trade.new(data['trial'])
         @trade = Trade.new(data['trade'])
@@ -76,14 +79,16 @@ module Fugle
       class Price
         # @since 0.1.0
         # @api private
-        attr_reader :high, :low, :open
+        attr_reader :high, :low, :open, :average
 
         # @since 0.1.0
         # @api private
         def initialize(data)
+          # TODO: Refactor to Price object
           @high = Trade.new(data['priceHigh'])
           @low = Trade.new(data['priceLow'])
           @open = Trade.new(data['priceOpen'])
+          @average = Trade.new(data['priceAvg'])
         end
 
         # Convert to Hash
@@ -116,14 +121,15 @@ module Fugle
       class Order
         # @since 0.1.0
         # @api private
-        attr_reader :update_at, :best_bids, :best_asks
+        attr_reader :update_at, :bids, :asks
 
         # @since 0.1.0
         # @api private
         def initialize(data)
           @updated_at = DateTime.parse(data['at'])
-          @best_bids = data['bestBids'].map { |item| Trade.new(item) }
-          @best_asks = data['bestAsks'].map { |item| Trade.new(item) }
+          # TODO: Refactor to Bid/Ask object
+          @bids = data['bids'].map { |item| Trade.new(item) }
+          @asks = data['asks'].map { |item| Trade.new(item) }
         end
 
         # Convert to Hash
@@ -135,8 +141,8 @@ module Fugle
         def to_h
           {
             updated_at: @updated_at,
-            best_bids: @best_bids,
-            best_asks: @best_asks
+            bids: @bids,
+            asks: @asks
           }
         end
 
