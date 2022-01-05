@@ -21,3 +21,6 @@ gem 'bundler-audit'
 gem 'overcommit'
 
 gem 'pry'
+
+gem 'vcr'
+gem 'webmock'
