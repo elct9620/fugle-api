@@ -6,6 +6,10 @@ RSpec.describe Fugle::Config do
   describe '#api_token' do
     subject { config.api_token }
 
+    before do
+      allow(ENV).to receive(:[]).with('FUGLE_API_TOKEN').and_return(nil)
+    end
+
     it { is_expected.to be_nil }
 
     context 'when FUGLE_API_TOKEN is configured' do

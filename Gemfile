@@ -22,5 +22,6 @@ gem 'overcommit'
 
 gem 'pry'
 
+gem 'dotenv'
 gem 'vcr'
 gem 'webmock'

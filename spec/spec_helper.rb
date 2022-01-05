@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+require 'dotenv'
+
+Dotenv.load unless ENV['CI']
 
 SimpleCov.start do
   load_profile 'test_frameworks'
