@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-require 'bundler/setup'
+require 'simplecov'
+
+SimpleCov.start do
+  load_profile 'test_frameworks'
+end
+
 require 'fugle'
 
 RSpec.configure do |config|
