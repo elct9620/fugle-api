@@ -17,10 +17,10 @@ module Fugle
         @api = Fugle
       end
 
-      # @since 0.1.0
+      # @since 0.3.0
       # @api private
-      def respond_to_missing?(_name)
-        super
+      def respond_to_missing?(name)
+        !find(name).nil?
       end
 
       # @since 0.1.0
