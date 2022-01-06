@@ -23,6 +23,6 @@ RSpec.describe Fugle::Intraday::Chart do
     it { is_expected.to include('"low":1') }
     it { is_expected.to include('"close":1') }
     it { is_expected.to include('"volume":1') }
-    it { is_expected.to include('"time":"2022-01-06T16:56:14+08:00"') }
+    it { is_expected.to include('"time":') }
   end
 end
