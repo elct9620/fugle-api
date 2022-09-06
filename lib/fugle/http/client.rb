@@ -19,8 +19,8 @@ module Fugle
 
       # @since 0.1.0
       # @api private
-      def respond_to_missing?(_name)
-        super
+      def respond_to_missing?(name)
+        find(name) != nil
       end
 
       # @since 0.1.0

@@ -49,11 +49,10 @@ module Fugle
       # @api private
       def to_h
         @query
-          .map do |name, value|
+          .to_h do |name, value|
             as = @parameters[name]&.fetch(:alias, nil)
             [as || name, value]
           end
-          .to_h
       end
 
       # @since 0.1.0
